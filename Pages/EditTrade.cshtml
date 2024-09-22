@@ -1,0 +1,10 @@
+@page "{id:int}"
+@model TradeManagementApp.Pages.EditTradeModel
+<h2>Edit Trade Data</h2>
+
+<form method="post">
+    <label for="tradeData">Edit Trade Data:</label>
+    <input type="text" id="tradeData" name="TradeData.TradeInfo" value="@Model.TradeData.TradeInfo" />
+    <button type="submit">Save Changes</button>
+</form>
+

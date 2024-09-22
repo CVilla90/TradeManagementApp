@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <message>
+        <title>Test Message</title>
+        <body>Hello, this is a test XML file!</body>
+    </message>
+    <note>
+        <from>Carlos</from>
+        <to>Tester</to>
+        <subject>Testing XML</subject>
+        <content>This is a simple test for the web app.</content>
+    </note>
+</root>

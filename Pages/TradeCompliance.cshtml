@@ -1,0 +1,12 @@
+@page
+@model TradeManagementApp.Pages.TradeComplianceModel
+<h2>Trade Compliance Dashboard</h2>
+
+<form method="post">
+    <label for="tradeData">Enter Trade Data:</label>
+    <input type="text" id="tradeData" name="TradeData" />
+    <button type="submit">Submit</button>
+</form>
+
+<p>@TempData["ComplianceMessage"]</p>
+<p>@TempData["UserTradeData"]</p>

@@ -1,0 +1,14 @@
+@page "{id:int}"
+@model ViewDocumentModel
+@{
+    ViewData["Title"] = "View Document";
+}
+
+<h2>View Document</h2>
+
+<p><strong>Document Name:</strong> @Model.Document.DocumentName</p>
+<p><strong>Status:</strong> @Model.Document.Status</p>
+
+<a href="@Url.Content($"~/{Model.Document.FilePath}")" download>Download Document</a>
+
+<!-- TradeManagementApp\Pages\ViewDocument.cshtml -->

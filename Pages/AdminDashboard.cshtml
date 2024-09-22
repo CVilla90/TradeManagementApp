@@ -1,0 +1,62 @@
+@page
+@model AdminDashboardModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <!-- Sidebar: List of Users -->
+    <div class="col-md-4">
+        <h4>Users</h4>
+        <ul class="list-group">
+            @foreach (var user in Model.Users)
+            {
+                <li class="list-group-item">
+                    <a asp-page="/Admin/AdminDashboard" asp-route-userId="@user.Id">@user.UserName</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Main Content: Documents of the Selected User -->
+    <div class="col-md-8">
+        <h4>Documents for @Model.SelectedUser?.UserName</h4>
+        @if (Model.Documents.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Upload Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doc in Model.Documents)
+                    {
+                        <tr>
+                            <td>@doc.DocumentName</td>
+                            <td>@doc.UploadDate.ToShortDateString()</td>
+                            <td>@doc.Status</td>
+                            <td>
+                                <a asp-page="/Admin/ViewDocument" asp-route-id="@doc.Id">View</a> |
+                                <a asp-page="/Admin/UpdateStatus" asp-route-id="@doc.Id">Update Status</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No documents found for the selected user.</p>
+        }
+    </div>
+</div>
+
+
+
+<!-- TradeManagementApp\Pages\AdminDashboard.cshtml -->

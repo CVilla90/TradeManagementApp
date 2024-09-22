@@ -1,0 +1,72 @@
+@page
+@model UserDashboardModel
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <!-- Upload Document Form -->
+    <div class="col-md-6">
+        <h4>Upload Document</h4>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="documentName">Document Name:</label>
+                <input type="text" id="documentName" name="DocumentName" asp-for="DocumentName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="file">Upload File:</label>
+                <input type="file" id="file" name="UploadedFile" asp-for="UploadedFile" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+
+    <!-- Display Uploaded Documents -->
+    <div class="col-md-6">
+        <h4>Your Documents</h4>
+        @if (Model.Documents.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Status</th>
+                        <th>Upload Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doc in Model.Documents)
+                    {
+                        <tr>
+                            <td>@doc.DocumentName</td>
+                            <td>
+                                <span class="badge @(Model.GetBadgeClass(doc.Status))">@doc.Status</span>
+                            </td>
+                            <td>@doc.UploadDate.ToShortDateString()</td>
+                            <td>
+                                <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
+
+                                <!-- Delete button visible only to uploader or admin -->
+                                @if (User.IsInRole("Admin") || doc.UserId == UserManager.GetUserId(User))
+                                {
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@doc.Id" onsubmit="return confirm('Are you sure you want to delete this file?');" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No documents uploaded yet.</p>
+        }
+    </div>
+</div>

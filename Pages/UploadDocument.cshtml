@@ -1,0 +1,15 @@
+@page
+@model UploadDocumentModel
+<h2>Upload Document</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <label for="documentName">Document Name:</label>
+    <input type="text" id="documentName" name="DocumentName" required />
+
+    <label for="file">Upload File:</label>
+    <input type="file" id="file" name="File" required />
+
+    <button type="submit">Upload</button>
+</form>
+
+<!-- TradeManagementApp\Pages\UploadDocument.cshtml -->
