@@ -1,15 +1,54 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section">
+    <img src="~/images/professional_business_setting.png" alt="Business setting image" class="hero-image">
+    <div class="hero-content">
+        <h1>Welcome to Trade Management App</h1>
+        <p>Your solution for managing documents and tax compliance efficiently.</p>
+        <a href="/UserDashboard" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
 </div>
 
-<a href="./TradeCompliance">Go to Trade Compliance Dashboard</a>
+<div class="services-section">
+    <div class="container">
+        <h2>Our Services</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-box">
+                    <h3>Document Management</h3>
+                    <p>Upload, track, and organize your important documents for regulatory compliance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-box">
+                    <h3>Tax Compliance</h3>
+                    <p>Ensure your documents comply with tax regulations with our expert guidance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-box">
+                    <h3>Business Growth</h3>
+                    <p>Streamline your business processes and focus on what matters most—growth.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="contact-section">
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to <a href="/Contact">get in touch</a> with us. We're here to help you succeed.</p>
+    </div>
+</div>
 
-<!-- TradeManagementApp\Pages\Index.cshtml -->
+<footer class="main-footer">
+    <div class="container">
+        <p>&copy; 2024 Trade Management App. All Rights Reserved.</p>
+        <a href="/Privacy" class="footer-link">Privacy Policy</a>
+    </div>
+</footer>

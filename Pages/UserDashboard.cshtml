@@ -45,10 +45,12 @@
                         <tr>
                             <td>@doc.DocumentName</td>
                             <td>
+                                <!-- Status badge -->
                                 <span class="badge @(Model.GetBadgeClass(doc.Status))">@doc.Status</span>
                             </td>
                             <td>@doc.UploadDate.ToShortDateString()</td>
                             <td>
+                                <!-- Download button -->
                                 <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
 
                                 <!-- Delete button visible only to uploader or admin -->
@@ -70,3 +72,5 @@
         }
     </div>
 </div>
+
+<!-- TradeManagementApp\Pages\UserDashboard.cshtml -->

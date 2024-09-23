@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TradeManagementApp.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class AdminDashboardModel : PageModel
 {
@@ -37,11 +38,24 @@ public class AdminDashboardModel : PageModel
         }
         else
         {
-            // Optionally, load documents for all users if no user is selected
-            Documents = await _context.Documents.ToListAsync();
+            // If no user is selected, no documents are shown by default
+            Documents = new List<Document>();
         }
     }
-}
 
+    public async Task<IActionResult> OnPostUpdateStatusAsync(int id, string Status)
+    {
+        var document = await _context.Documents.FindAsync(id);
+        if (document == null)
+        {
+            return NotFound();
+        }
+
+        document.Status = Status;
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage();
+    }
+}
 
 // TradeManagementApp\Pages\AdminDashboard.cshtml.cs

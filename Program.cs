@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using TradeManagementApp.Data;
 using TradeManagementApp.Services;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Get the connection string from appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("TradeContextConnection") 
+var connectionString = builder.Configuration.GetConnectionString("TradeContextConnection")
     ?? throw new InvalidOperationException("Connection string 'TradeContextConnection' not found.");
 
 // Add services to the container.
@@ -23,38 +24,74 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<TradeContext>()
     .AddDefaultTokenProviders();
 
-// Register the dummy email sender service
+// Register the email sender service (dummy service in this case)
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
+// Add logging services
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 var app = builder.Build();
 
 // Seed roles and admin user
 using (var scope = app.Services.CreateScope())
 {
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    string[] roles = { "Admin", "User" };
-    foreach (var role in roles)
+    try
     {
-        if (!await roleManager.RoleExistsAsync(role))
+        // Define roles
+        string[] roles = { "Admin", "User" };
+        
+        foreach (var role in roles)
         {
-            await roleManager.CreateAsync(new IdentityRole(role));
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+                logger.LogInformation($"Created role: {role}");
+            }
+        }
+
+        // Retrieve admin credentials from environment variables
+        var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL") ?? "admin@example.com";
+        var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD") 
+                            ?? throw new InvalidOperationException("Admin password not set.");
+
+        // Create an admin user if it doesn't exist
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        if (adminUser == null)
+        {
+            adminUser = new IdentityUser { UserName = adminEmail, Email = adminEmail };
+            var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+                logger.LogInformation($"Admin user created with email: {adminEmail}");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    logger.LogError($"Error creating admin user: {error.Description}");
+                }
+            }
+        }
+        else
+        {
+            logger.LogInformation("Admin user already exists.");
         }
     }
-
-    // Create an admin user if it doesn't exist
-    var adminEmail = "admin@example.com"; // Change this to your admin email
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
+    catch (Exception ex)
     {
-        adminUser = new IdentityUser { UserName = adminEmail, Email = adminEmail };
-        await userManager.CreateAsync(adminUser, "CarlosSuperUserVilla$321"); // Change password as needed
-        await userManager.AddToRoleAsync(adminUser, "Admin");
+        logger.LogError($"An error occurred while seeding the roles or creating the admin user: {ex.Message}");
+        throw;
     }
 }
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -62,11 +99,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // This ensures static files like uploads are served
+app.UseStaticFiles(); // Ensure static files like uploads are served
 
 app.UseRouting();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

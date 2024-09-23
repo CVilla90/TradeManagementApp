@@ -1,22 +1,227 @@
+/* Base Styles */
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+      font-size: 16px;
   }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
 }
 
 body {
   margin-bottom: 60px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Button Focus & Form Focus */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  text-align: center;
+  background-color: #2c3e50;
+  color: white;
+  padding: 60px 0;
+}
+
+.hero-image {
+  width: 100%;
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-lg {
+  padding: 12px 30px;
+  font-size: 18px;
+}
+
+/* Services Section */
+.services-section {
+  padding: 60px 0;
+  background-color: #f5f5f5;
+}
+
+.services-section h2 {
+  text-align: center;
+  color: #2980b9;
+  margin-bottom: 40px;
+  font-size: 32px;
+}
+
+.service-box {
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.service-box h3 {
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+.service-box p {
+  color: #7f8c8d;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 40px 0;
+  background-color: #ecf0f1;
+  text-align: center;
+}
+
+.contact-section h2 {
+  color: #2980b9;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.contact-section p {
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.contact-section a {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Footer */
+.main-footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.main-footer p {
+  margin: 0;
+}
+
+.footer-link {
+  color: #ecf0f1;
+  margin-left: 15px;
+}
+
+.footer-link:hover {
+  color: #95a5a6;
+}
+
+/* Dashboard Specific Styles */
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #34495e;
+}
+
+.form-control {
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+}
+
+.btn-primary {
+  background-color: #2980b9;
+  border-color: #2980b9;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+.btn-success {
+  background-color: #27ae60;
+  border-color: #27ae60;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+.table {
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+.table th {
+  color: #2980b9;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  padding: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.badge-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.badge-success {
+  background-color: #27ae60;
+  color: white;
+}
+
+.badge-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.badge-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.text-center {
+  text-align: center;
 }

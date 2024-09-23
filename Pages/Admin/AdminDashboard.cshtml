@@ -1,4 +1,4 @@
-@page
+@page "/Admin/AdminDashboard"
 @model AdminDashboardModel
 @{
     ViewData["Title"] = "Admin Dashboard";
@@ -40,10 +40,19 @@
                         <tr>
                             <td>@doc.DocumentName</td>
                             <td>@doc.UploadDate.ToShortDateString()</td>
-                            <td>@doc.Status</td>
                             <td>
-                                <a asp-page="/Admin/ViewDocument" asp-route-id="@doc.Id">View</a> |
-                                <a asp-page="/Admin/UpdateStatus" asp-route-id="@doc.Id">Update Status</a>
+                                <!-- Dropdown for changing document status -->
+                                <form method="post" asp-page-handler="UpdateStatus" asp-route-id="@doc.Id">
+                                    <select name="Status" class="form-select">
+                                        <option value="In Review" selected="@(doc.Status == "In Review" ? "selected" : null)">In Review</option>
+                                        <option value="Approved for Submission" selected="@(doc.Status == "Approved for Submission" ? "selected" : null)">Approved for Submission</option>
+                                        <option value="Needs Revision" selected="@(doc.Status == "Needs Revision" ? "selected" : null)">Needs Revision</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
                             </td>
                         </tr>
                     }
@@ -57,6 +66,4 @@
     </div>
 </div>
 
-
-
-<!-- TradeManagementApp\Pages\AdminDashboard.cshtml -->
+<!-- TradeManagementApp\Pages\Admin\AdminDashboard.cshtml -->
