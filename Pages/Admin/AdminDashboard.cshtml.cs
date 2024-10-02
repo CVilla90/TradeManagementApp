@@ -56,6 +56,14 @@ public class AdminDashboardModel : PageModel
 
         return RedirectToPage();
     }
+
+    // Method to determine badge class for AI score
+    public string GetAIScoreClass(float score)
+    {
+        if (score >= 75) return "badge-success";  // Green for high score
+        if (score >= 50) return "badge-warning";  // Yellow for moderate score
+        return "badge-danger";                    // Red for low score
+    }
 }
 
 // TradeManagementApp\Pages\AdminDashboard.cshtml.cs

@@ -41,6 +41,9 @@ namespace TradeManagementApp.Data
 
         // Upload date to track when the document was uploaded (default to DateTime.Now)
         public DateTime UploadDate { get; set; } = DateTime.Now;
+
+        // New AI score property (0 to 100)
+        public float AIScore { get; set; } // Add this for storing AI score
     }
 }
 

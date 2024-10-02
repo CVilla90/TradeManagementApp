@@ -1,0 +1,238 @@
+/* TradeManagementApp\wwwroot\css\landing.css */
+
+/* Define a color palette */
+:root {
+    --primary-color: #1e3a5f; /* Dark blue */
+    --secondary-color: #3c6e9e; /* Medium blue */
+    --accent-color: #ffffff;   /* White */
+    --text-color: #333333;     /* Dark gray */
+}
+
+/* General Styles */
+body.home-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: var(--primary-color); /* Set dark blue background */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--primary-color); /* Consistent dark blue background */
+    color: var(--accent-color);
+}
+
+.carousel-item {
+    height: 100vh;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+}
+
+.hero-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 56px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: float 5s ease-in-out infinite;
+}
+
+.hero-content p {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.btn-hero {
+    font-size: 20px;
+    padding: 14px 40px;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-hero:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Shapes on the margins */
+.hero-section::before,
+.hero-section::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent shapes */
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.hero-section::before {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    left: -200px;
+}
+
+.hero-section::after {
+    width: 300px;
+    height: 300px;
+    bottom: -150px;
+    right: -150px;
+}
+
+/* Services Section */
+.services-section {
+    padding: 80px 0;
+    background-color: var(--accent-color);
+    box-shadow: 0px -5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.services-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 60px;
+    font-size: 36px;
+    position: relative;
+}
+
+.services-section h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translateX(-50%);
+}
+
+.service-box {
+    background-color: var(--accent-color);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: transform 0.3s, max-height 0.3s;
+    border-radius: 10px;
+    max-height: 250px; /* Collapsed height */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.service-box:hover {
+    transform: translateY(-10px);
+    max-height: 500px; /* Expanded height */
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 60px 0;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    text-align: center;
+}
+
+/* Footer */
+.main-footer {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-link {
+    color: var(--accent-color);
+    margin-left: 15px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+/* Floating Animation for Hero Heading */
+@keyframes float {
+    0% {
+        transform: translate(-50%, -40%);
+    }
+    50% {
+        transform: translate(-50%, -45%);
+    }
+    100% {
+        transform: translate(-50%, -40%);
+    }
+}
+
+/* AOS Animations */
+[data-aos] {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* RESPONSIVE DESIGN: Mobile styles */
+/* Adjusts for screens smaller than 768px (smartphones) */
+@media (max-width: 767px) {
+    .hero-content h1 {
+        font-size: 32px;  /* Smaller font size for mobile */
+    }
+
+    .hero-content p {
+        font-size: 16px;  /* Smaller font size for mobile */
+    }
+
+    .btn-hero {
+        font-size: 16px;
+        padding: 10px 30px;
+    }
+
+    /* Adjust the height of the hero section on mobile */
+    .hero-section {
+        height: 80vh;  /* Reduce height to fit better on mobile screens */
+    }
+
+    .service-box {
+        padding: 20px; /* Reduce padding for mobile */
+    }
+
+    .services-section h2 {
+        font-size: 28px;  /* Reduce the heading size for mobile */
+    }
+
+    /* Adjust shapes for smaller screens */
+    .hero-section::before {
+        width: 200px;
+        height: 200px;
+        top: -100px;
+        left: -100px;
+    }
+
+    .hero-section::after {
+        width: 150px;
+        height: 150px;
+        bottom: -75px;
+        right: -75px;
+    }
+}

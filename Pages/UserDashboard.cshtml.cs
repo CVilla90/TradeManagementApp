@@ -6,16 +6,23 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Text.Json;
 
 public class UserDashboardModel : PageModel
 {
     private readonly TradeContext _context;
     private readonly UserManager<IdentityUser> _userManager;
+    private List<string> Keywords { get; set; }
 
     public UserDashboardModel(TradeContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
         _userManager = userManager;
+
+        // Load the keywords from the JSON file on initialization
+        var keywordsFilePath = Path.Combine("wwwroot", "data", "Keywords.json");
+        LoadKeywords(keywordsFilePath);
     }
 
     [BindProperty]
@@ -25,6 +32,31 @@ public class UserDashboardModel : PageModel
     public IFormFile? UploadedFile { get; set; }
 
     public List<Document> Documents { get; set; } = new List<Document>();
+
+    // Method to load keywords from the JSON file
+    private void LoadKeywords(string jsonFilePath)
+    {
+        using (var reader = new StreamReader(jsonFilePath))
+        {
+            var jsonContent = reader.ReadToEnd();
+            var jsonDocument = JsonDocument.Parse(jsonContent);
+            Keywords = jsonDocument.RootElement.GetProperty("keywords").EnumerateArray()
+                        .Select(k => k.GetString().ToLower()).ToList();
+        }
+    }
+
+    // Method to calculate the AI score based on keyword matching
+    private float CalculateAIScore(string documentPath)
+    {
+        // Read the document text
+        var documentText = System.IO.File.ReadAllText(documentPath).ToLower();
+
+        // Count how many keywords match
+        int matchCount = Keywords.Count(keyword => documentText.Contains(keyword));
+
+        // Return the AI score as a percentage
+        return (float)matchCount / Keywords.Count * 100;
+    }
 
     public async Task OnGetAsync()
     {
@@ -41,7 +73,7 @@ public class UserDashboardModel : PageModel
 
         if (UploadedFile != null)
         {
-            var uploadDir = Path.Combine("wwwroot", "uploads");  // Ensure this directory exists
+            var uploadDir = Path.Combine("wwwroot", "uploads");
             Directory.CreateDirectory(uploadDir); 
             filePath = Path.Combine("uploads", UploadedFile.FileName);
 
@@ -57,7 +89,8 @@ public class UserDashboardModel : PageModel
             FilePath = filePath,
             Status = "In Review",
             UserId = userId,
-            UploadDate = DateTime.Now
+            UploadDate = DateTime.Now,
+            AIScore = CalculateAIScore(Path.Combine("wwwroot", filePath)) // Calculate and assign AI Score
         };
 
         _context.Documents.Add(document);
@@ -110,7 +143,12 @@ public class UserDashboardModel : PageModel
             _ => "badge-secondary",
         };
     }
+
+    // Add method to get the badge class for the AI score
+    public string GetAIScoreClass(float score)
+    {
+        if (score >= 75) return "badge-success";
+        if (score >= 50) return "badge-warning";
+        return "badge-danger";
+    }
 }
-
-
-// Relative path: TradeManagementApp\Pages\UserDashboard.cshtml.cs

@@ -36,34 +36,37 @@
                         <th>Document Name</th>
                         <th>Status</th>
                         <th>Upload Date</th>
+                        <th>AI Score %</th> <!-- New column for AI Score -->
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var doc in Model.Documents)
-                    {
-                        <tr>
-                            <td>@doc.DocumentName</td>
-                            <td>
-                                <!-- Status badge -->
-                                <span class="badge @(Model.GetBadgeClass(doc.Status))">@doc.Status</span>
-                            </td>
-                            <td>@doc.UploadDate.ToShortDateString()</td>
-                            <td>
-                                <!-- Download button -->
-                                <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
-
-                                <!-- Delete button visible only to uploader or admin -->
-                                @if (User.IsInRole("Admin") || doc.UserId == UserManager.GetUserId(User))
-                                {
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@doc.Id" onsubmit="return confirm('Are you sure you want to delete this file?');" style="display:inline;">
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                    </form>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                @foreach (var doc in Model.Documents)
+                {
+                    <tr>
+                        <td>@doc.DocumentName</td>
+                        <td>
+                            <!-- Status badge -->
+                            <span class="badge @(Model.GetBadgeClass(doc.Status))">@doc.Status</span>
+                        </td>
+                        <td>@doc.UploadDate.ToShortDateString()</td>
+                        <td>
+                            <!-- AI Score column -->
+                            <span class="badge @(Model.GetAIScoreClass(doc.AIScore))">@doc.AIScore.ToString("F0")%</span>
+                        </td>
+                        <td>
+                            <!-- Actions (Download, Delete, etc.) -->
+                            <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
+                            @if (User.IsInRole("Admin") || doc.UserId == UserManager.GetUserId(User))
+                            {
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@doc.Id" onsubmit="return confirm('Are you sure you want to delete this file?');" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
             </table>
         }
         else

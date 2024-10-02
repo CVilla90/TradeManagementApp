@@ -1,0 +1,100 @@
+Activo
+Aduana
+Almacén
+Artículo
+Auditoría
+Autorización
+Base de datos
+Bienes
+Bodega
+Boleta
+Certificado
+CIF
+Código
+Comercio exterior
+Comprobante
+Contribución
+Control de inventario
+Costo
+Declaración
+Descarga
+Despacho
+Documento
+Domicilio fiscal
+Embarque
+Entrada
+EORI
+Error
+Exportación
+Factura
+Fecha de emisión
+Fecha de pago
+Fecha de recepción
+Fehaciencia
+Folio
+Formato XML
+Fraude
+Garantía
+Gastos de importación
+Gestor
+Guía de importación
+Hacienda
+Importación
+Impuesto al valor agregado (IVA)
+Inscripción
+Inspección
+Inventario
+Ley aduanera
+Licencia
+Liquidación
+Llenado
+Lista de mercancía
+Logística
+Mantenimiento
+Manual de procedimientos
+Marca
+Mercancía
+Modificación
+Normativa
+Notificación
+Número de pedimento
+Número de serie
+Número de transmisión
+Orden de compra
+Pago
+Pedimento
+Permiso de importación
+Producto
+Proveedor
+Recibo
+Recepción
+Registro
+Regulación
+Revisión
+SAT
+Secretaría de Hacienda
+Seguro
+Serie
+Sistema de administración
+Sistema electrónico
+Tarifa
+Tasa
+Transportista
+Traslado
+Tratado comercial
+Unidad de medida
+Valor aduana
+Valor de mercancía
+Verificación
+Ventanilla digital
+Vigencia
+Vinculación
+XML
+Código aduanero
+Transacción
+Terceros
+Valor en aduana
+Certificado de origen
+Declarante
+Instrucción
+Anexo

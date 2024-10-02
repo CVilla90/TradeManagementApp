@@ -4,11 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TradeManagementApp</title>
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Site-wide CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/_Layout.cshtml.css" asp-append-version="true" />
+
+    @* Include landing.css only on the home page *@
+    @if ((string)ViewData["BodyClass"] == "home-page")
+    {
+        <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" />
+    }
+
+    @* AOS CSS (if used globally) *@
+    @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" /> *@
 </head>
-<body>
+<body class="@(ViewData["BodyClass"])">
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
@@ -61,22 +73,47 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    @* Conditional container for the main content *@
+    @if ((string)ViewData["BodyClass"] != "home-page")
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else
+    {
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    }
 
+    <!-- Footer -->
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - TradeManagementApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - TradeManagementApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Site-wide JS -->
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @* Include landing.js and AOS scripts only on the home page *@
+    @if ((string)ViewData["BodyClass"] == "home-page")
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script src="~/js/landing.js" asp-append-version="true"></script>
+        <script>
+            AOS.init();
+        </script>
+    }
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

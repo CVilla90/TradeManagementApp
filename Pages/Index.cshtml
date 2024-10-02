@@ -2,44 +2,77 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["BodyClass"] = "home-page";
 }
 
-<div class="hero-section">
-    <img src="~/images/professional_business_setting.png" alt="Business setting image" class="hero-image">
-    <div class="hero-content">
-        <h1>Welcome to Trade Management App</h1>
-        <p>Your solution for managing documents and tax compliance efficiently.</p>
-        <a href="/UserDashboard" class="btn btn-primary btn-lg">Get Started</a>
+<!-- Include AOS CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+<!-- Hero Section with Bootstrap Carousel -->
+<div id="heroCarousel" class="carousel slide hero-section" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/images/corporate_meeting_image.png" class="d-block w-100 hero-image" alt="Corporate Meeting">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/professional_border_business_image.png" class="d-block w-100 hero-image" alt="Professional Border Business">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/professional_business_setting.png" class="d-block w-100 hero-image" alt="Business Setting">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+    <div class="carousel-caption hero-content">
+        <h1 data-aos="fade-up">Welcome to Trade Management App</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Your solution for managing documents and tax compliance efficiently.</p>
+        <a href="/UserDashboard" class="btn btn-primary btn-lg btn-hero" data-aos="fade-up" data-aos-delay="400">Get Started</a>
     </div>
 </div>
 
+<!-- Services Section -->
 <div class="services-section">
     <div class="container">
-        <h2>Our Services</h2>
+        <h2 data-aos="fade-up">Our Services</h2>
         <div class="row">
             <div class="col-md-4">
-                <div class="service-box">
+                <div class="service-box" data-aos="fade-up" data-aos-delay="100">
                     <h3>Document Management</h3>
                     <p>Upload, track, and organize your important documents for regulatory compliance.</p>
+                    <p>Our service helps streamline your document management process.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="service-box">
+                <div class="service-box" data-aos="fade-up" data-aos-delay="200">
                     <h3>Tax Compliance</h3>
                     <p>Ensure your documents comply with tax regulations with our expert guidance.</p>
+                    <p>Stay ahead of the changing regulations with our compliance tools.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="service-box">
+                <div class="service-box" data-aos="fade-up" data-aos-delay="300">
                     <h3>Business Growth</h3>
                     <p>Streamline your business processes and focus on what matters most—growth.</p>
+                    <p>We provide tools to help your business expand efficiently.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="contact-section">
+<!-- Contact Section -->
+<div class="contact-section" data-aos="fade-up" data-aos-delay="100">
     <div class="container">
         <h2>Contact Us</h2>
         <p>If you have any questions, feel free to <a href="/Contact">get in touch</a> with us. We're here to help you succeed.</p>
@@ -52,3 +85,10 @@
         <a href="/Privacy" class="footer-link">Privacy Policy</a>
     </div>
 </footer>
+
+<!-- Include AOS JS and Custom Script -->
+<script src="~/js/landing.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init();
+</script>

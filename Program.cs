@@ -98,7 +98,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Commenting this out to avoid HTTPS issues in local dev
+// app.UseHttpsRedirection();
+
 app.UseStaticFiles(); // Ensure static files like uploads are served
 
 app.UseRouting();

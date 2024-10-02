@@ -31,6 +31,7 @@
                         <th>Document Name</th>
                         <th>Upload Date</th>
                         <th>Status</th>
+                        <th>AI Score %</th> <!-- New Column for AI Score -->
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -50,6 +51,10 @@
                                     </select>
                                     <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
                                 </form>
+                            </td>
+                            <td>
+                                <!-- AI Score % with badge style -->
+                                <span class="badge @(Model.GetAIScoreClass(doc.AIScore))">@doc.AIScore.ToString("F0")%</span>
                             </td>
                             <td>
                                 <a href="@Url.Content($"~/{doc.FilePath}")" class="btn btn-sm btn-success" download>Download</a>
